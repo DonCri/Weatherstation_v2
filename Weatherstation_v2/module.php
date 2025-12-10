@@ -1,5 +1,5 @@
 <?
-class DominoSwissWeatherstation extends IPSModule {
+class DominoSwissWeatherstation_v2 extends IPSModule {
 	
 	public function Create(){
 		//Never delete this line!

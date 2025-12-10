@@ -1,0 +1,18 @@
+{
+  "id": "{5677A323-5800-70C9-C0B5-A1E9B2F8A36B}",
+  "name": "DominoSwissWeatherstation",
+  "type": 3,
+  "vendor": "Brelag Schweiz AG",
+  "aliases": [
+    "DominoSwiss SWW SOL",
+    "DominoSwiss SWRW"
+  ],
+  "parentRequirements": [
+    "{C24CDA30-82EE-46E2-BAA0-13A088ACB5DB}"
+  ],
+  "childRequirements": [],
+  "implemented": [
+    "{BA70E3E8-68D2-4E3B-8C64-BBB86F188473}"
+  ],
+  "prefix": "BRELAG"
+}
