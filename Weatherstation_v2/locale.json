@@ -2,7 +2,15 @@
   "translations": {
     "de": {
       "Light": "Lichtwert",
-      "Raining": "Regen"
+      "Raining": "Regen",
+      "SunAzimuth": "Azumut",
+      "ShadingAutomation": "Beschattungsautomation",
+      "UseAzimuth": "Nutze Azimut",
+      "BrightnessUpperThreshold": "Oberen Schwellwert",
+      "BrightnessLowerThreshold": "Unteren Schwellwert",
+      "AzimuthFrom": "Azimut von",
+      "AzimuthTo": "Azimut bis",
+      "ShadingTriggered": "Beschattung ausgelöst"
     }
   }
 }
