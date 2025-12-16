@@ -1,19 +1,17 @@
 <?php
 
-/*
+/**
  * This is a Symcon module for handling weather station data from DominoSwiss devices.
  * It processes sensor data like light intensity, wind speed, rain detection, and solar azimuth.
  * The module also provides automation capabilities for shading control based on weather conditions.
  */
 
-class DominoSwissWeatherstation_v2 extends IPSModule
-{
+class DominoSwissWeatherstation_v2 extends IPSModule {
 
   /*
    * Create function - Initializes the module and registers all necessary properties and variables
    */
-  public function Create()
-  {
+  public function Create() {
     //Never delete this line!
     parent::Create();
 
@@ -57,34 +55,31 @@ class DominoSwissWeatherstation_v2 extends IPSModule
 
 
 
-  /*
+  /**
    * Destroy function - Cleans up the module
    */
-  public function Destroy()
-  {
+  public function Destroy() {
     //Never delete this line!
     parent::Destroy();
   }
 
 
 
-  /*
+  /**
    * ApplyChanges function - Applies configuration changes
    */
-  public function ApplyChanges()
-  {
+  public function ApplyChanges() {
     //Never delete this line!
     parent::ApplyChanges();
   }
 
 
 
-  /*
+  /**
    * ReceiveData function - Processes incoming data from the weather station
    * Handles different command types and updates corresponding sensor values
    */
-  public function ReceiveData($JSONString)
-  {
+  public function ReceiveData($JSONString) {
 
     $data = json_decode($JSONString);
 
@@ -116,12 +111,11 @@ class DominoSwissWeatherstation_v2 extends IPSModule
     }
   }
 
-  /*
+  /**
    * GetLightValue function - Converts raw light sensor data to actual illumination values
    * Uses a lookup table with different ranges and steps for accurate conversion
    */
-  function GetLightValue($Category, $Modulo)
-  {
+  function GetLightValue($Category, $Modulo) {
 
     $base = 0;
     $step = 0;
@@ -212,12 +206,11 @@ class DominoSwissWeatherstation_v2 extends IPSModule
 
 
 
-  /*
+  /**
    * GetWindValue function - Converts raw wind sensor data to actual wind speed values
    * Uses a lookup table with different ranges and steps for accurate conversion
    */
-  function GetWindValue($Category, $Modulo)
-  {
+  function GetWindValue($Category, $Modulo) {
 
     $base = 0;
     $step = 0;
@@ -305,12 +298,11 @@ class DominoSwissWeatherstation_v2 extends IPSModule
     return $base + $Modulo * ($step / 8);
   }
 
-  /*
+  /**
    * MessageSink function - Handles messages from other modules
    * Specifically processes azimuth data from the location module
    */
-  public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
-  {
+  public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
     $locationAzimuthId = IPS_GetObjectIDByIdent("Azimuth", IPS_GetInstanceListByModuleID("{45E97A63-F870-408A-B259-2933F7EABF74}")[0]);
     if ($SenderID == $locationAzimuthId) {
       $this->SetValue("SunAzimuth", GetValue($locationAzimuthId));
@@ -318,46 +310,43 @@ class DominoSwissWeatherstation_v2 extends IPSModule
         $this->ShadingTriggered();
       }
     }
-  }
+  } 
 
-  /*
+  /**
    * ShadingTriggered function - Handles shading automation logic
    * Can use either simple brightness thresholds or azimuth-based logic
    */
-  public function ShadingTriggered()
-  {
+  public function ShadingTriggered() {
     if ($this->GetValue("ShadingAutomationState")) {
       if (!$this->GetValue("UseAzimuth")) {
-        // TODO: insert execution code
+        // TODO: insert code for shading
       } else {
-        //TODO: insert execution code
+        //TODO: insert code for shading
       }
     };
   }
 
-  /*
+  /**
    * WindTriggered function - Handles wind-based automation
    * Triggers actions when wind exceeds upper or lower thresholds
    */
-  public function WindTriggered()
-  {
+  public function WindTriggered() {
     if ($this->GetValue("Wind") > $this->GetValue("WindUpperThreshold")) {
-      // TODO: insert code
+      // TODO: insert code for wind
     } elseif ($this->GetValue("Wind") < $this->GetValue("WindLowerThreshold")) {
-      //TODO: insert code
+      // TODO: insert code for wind
     }
   }
 
-  /*
+  /**
    * RainTriggered function - Handles rain-based automation
    * Triggers different actions based on whether it's raining or not
    */
-  public function RainTriggered()
-  {
+  public function RainTriggered() {
     if ($this->GetValue("Rain")) {
-      // TODO: insert code
+      // TODO: insert code for rain
     } else {
-      // TODO: insert code
+      // TODO: insert code for rain
     }
   }
 }
