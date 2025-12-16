@@ -10,7 +10,9 @@
       "BrightnessLowerThreshold": "Unteren Schwellwert",
       "AzimuthFrom": "Azimut von",
       "AzimuthTo": "Azimut bis",
-      "ShadingTriggered": "Beschattung ausgelöst"
+      "ShadingTriggered": "Beschattung ausgelöst",
+      "WindUpperThreshold": "Windalarm ab",
+      "WindLowerThreshold": "Windalarm quittieren unter"
     }
   }
 }

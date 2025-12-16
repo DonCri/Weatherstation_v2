@@ -1,17 +1,28 @@
 <?php
 
+/*
+ * This is a Symcon module for handling weather station data from DominoSwiss devices.
+ * It processes sensor data like light intensity, wind speed, rain detection, and solar azimuth.
+ * The module also provides automation capabilities for shading control based on weather conditions.
+ */
+
 class DominoSwissWeatherstation_v2 extends IPSModule
 {
 
+  /*
+   * Create function - Initializes the module and registers all necessary properties and variables
+   */
   public function Create()
   {
     //Never delete this line!
     parent::Create();
 
+    // properties
     $this->RegisterPropertyInteger("ID", 1);
 
+
     // Sensor Variable
-    $this->RegisterVariableFloat("GoldCap", "GoldCap", "", 0);
+    $this->RegisterVariableFloat("ColdCap", "ColdCap", "", 0);
     $this->RegisterVariableInteger("LightValue", $this->Translate("Light"), "~Illumination", 1);
     $this->RegisterVariableFloat("WindValue", "Wind", "~WindSpeed.kmh", 2);
     $this->RegisterVariableBoolean("Raining", $this->Translate("Raining"), "~Raining", 3);
@@ -31,7 +42,10 @@ class DominoSwissWeatherstation_v2 extends IPSModule
     $this->RegisterVariableFloat("AzimuthTo", $this->Translate("AzimuthTo"), "", 10);
     $this->EnableAction("AzimuthTo");
     $this->RegisterVariableBoolean("ShadingTriggered", $this->Translate("ShadingTriggeredTriggered"), "", 11);
-
+    $this->RegisterVariableInteger("WindUpperThreshold", $this->Translate("WindUpperThreshold"), "", 12);
+    $this->EnableAction("WindUpperThreshold");
+    $this->RegisterVariableInteger("WindLowerThreshold", $this->Translate("WindLowerThreshold"), "", 14);
+    $this->EnableAction("WindLowerThreshold");
 
     // Required parent
     $this->ConnectParent("{1252F612-CF3F-4995-A152-DA7BE31D4154}"); //DominoSwiss eGate
@@ -43,6 +57,9 @@ class DominoSwissWeatherstation_v2 extends IPSModule
 
 
 
+  /*
+   * Destroy function - Cleans up the module
+   */
   public function Destroy()
   {
     //Never delete this line!
@@ -51,6 +68,9 @@ class DominoSwissWeatherstation_v2 extends IPSModule
 
 
 
+  /*
+   * ApplyChanges function - Applies configuration changes
+   */
   public function ApplyChanges()
   {
     //Never delete this line!
@@ -59,6 +79,10 @@ class DominoSwissWeatherstation_v2 extends IPSModule
 
 
 
+  /*
+   * ReceiveData function - Processes incoming data from the weather station
+   * Handles different command types and updates corresponding sensor values
+   */
   public function ReceiveData($JSONString)
   {
 
@@ -86,12 +110,16 @@ class DominoSwissWeatherstation_v2 extends IPSModule
           break;
 
         case 39:
-          SetValue($this->GetIDForIdent("GoldCap"), $data->Values->Value);
+          SetValue($this->GetIDForIdent("ColdCap"), $data->Values->Value);
           break;
       }
     }
   }
 
+  /*
+   * GetLightValue function - Converts raw light sensor data to actual illumination values
+   * Uses a lookup table with different ranges and steps for accurate conversion
+   */
   function GetLightValue($Category, $Modulo)
   {
 
@@ -184,6 +212,10 @@ class DominoSwissWeatherstation_v2 extends IPSModule
 
 
 
+  /*
+   * GetWindValue function - Converts raw wind sensor data to actual wind speed values
+   * Uses a lookup table with different ranges and steps for accurate conversion
+   */
   function GetWindValue($Category, $Modulo)
   {
 
@@ -273,8 +305,10 @@ class DominoSwissWeatherstation_v2 extends IPSModule
     return $base + $Modulo * ($step / 8);
   }
 
-  // MessageSink 
-  // Set Azimuth value
+  /*
+   * MessageSink function - Handles messages from other modules
+   * Specifically processes azimuth data from the location module
+   */
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
   {
     $locationAzimuthId = IPS_GetObjectIDByIdent("Azimuth", IPS_GetInstanceListByModuleID("{45E97A63-F870-408A-B259-2933F7EABF74}")[0]);
@@ -286,7 +320,10 @@ class DominoSwissWeatherstation_v2 extends IPSModule
     }
   }
 
-  // Shading automation
+  /*
+   * ShadingTriggered function - Handles shading automation logic
+   * Can use either simple brightness thresholds or azimuth-based logic
+   */
   public function ShadingTriggered()
   {
     if ($this->GetValue("ShadingAutomationState")) {
@@ -298,15 +335,29 @@ class DominoSwissWeatherstation_v2 extends IPSModule
     };
   }
 
-  // Wind automation
+  /*
+   * WindTriggered function - Handles wind-based automation
+   * Triggers actions when wind exceeds upper or lower thresholds
+   */
   public function WindTriggered()
   {
-    //TODO: insert execution code
+    if ($this->GetValue("Wind") > $this->GetValue("WindUpperThreshold")) {
+      // TODO: insert code
+    } elseif ($this->GetValue("Wind") < $this->GetValue("WindLowerThreshold")) {
+      //TODO: insert code
+    }
   }
 
-  // Rain automation
+  /*
+   * RainTriggered function - Handles rain-based automation
+   * Triggers different actions based on whether it's raining or not
+   */
   public function RainTriggered()
   {
-    // TODO: insert execution code
+    if ($this->GetValue("Rain")) {
+      // TODO: insert code
+    } else {
+      // TODO: insert code
+    }
   }
 }

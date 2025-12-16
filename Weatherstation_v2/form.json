@@ -1,6 +1,13 @@
 {
-  "elements":
-  [
-	{ "type": "NumberSpinner", "name": "ID", "caption": "ID"}
+  "elements": [
+    {
+      "type": "NumberSpinner",
+      "name": "ID",
+      "caption": "ID"
+    },
+    {
+      "type": "ScriptEditor",
+      "name": "ShaderUpperThreshold"
+    }
   ]
 }
