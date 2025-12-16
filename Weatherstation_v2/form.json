@@ -6,8 +6,20 @@
       "caption": "ID"
     },
     {
-      "type": "ScriptEditor",
-      "name": "ShaderUpperThreshold"
+      "type": "SelectAction",
+      "caption": "Select me!",
+      "enabled": true,
+      "environment": "Default",
+      "highestPriorityOnly": false,
+      "includeDefaultEnvironment": true,
+      "name": "ShaderUpperThreshold",
+      "saveTarget ": true,
+      "saveEnvironment": true,
+      "saveParent": true,
+      "targetID": -2,
+      "value": "",
+      "visible": true,
+      "width": "300px"
     }
   ]
 }
