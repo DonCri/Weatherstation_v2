@@ -4,8 +4,8 @@
   "type": 3,
   "vendor": "Brelag Schweiz AG",
   "aliases": [
-    "DominoSwiss SWW SOL",
-    "DominoSwiss SWRW"
+    "DominoSwiss SWW SOL v2",
+    "DominoSwiss SWRW v2"
   ],
   "parentRequirements": [
     "{C24CDA30-82EE-46E2-BAA0-13A088ACB5DB}"
