@@ -7,7 +7,7 @@
     },
     {
       "type": "SelectAction",
-      "caption": "Select me!",
+      "caption": "Shaderaction for upper threshold",
       "enabled": true,
       "environment": "Default",
       "highestPriorityOnly": false,
@@ -19,7 +19,7 @@
       "targetID": -2,
       "value": "",
       "visible": true,
-      "width": "300px"
+      "width": "200px"
     }
   ]
 }
