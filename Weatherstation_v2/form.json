@@ -4,6 +4,10 @@
       "type": "NumberSpinner",
       "name": "ID",
       "caption": "ID"
+    },
+    {
+      "type": "ScriptEditor",
+      "name": "ShaderUpperThreshold"
     }
   ]
 }
